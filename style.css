@@ -17,6 +17,13 @@
     --font-body: 'Lato', sans-serif;
 }
 
+.scroll-indicator {
+    /* ... seus estilos antigos continuam aqui ... */
+    
+    text-decoration: none; /* Tira o sublinhado */
+    display: inline-block; /* Garante que ela aceite margens e tamanho */
+}
+
 /* =========================================
    2. RESET E ESTRUTURA BÁSICA
    ========================================= */
