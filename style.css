@@ -1,0 +1,1279 @@
+/* =========================================
+   1. IMPORTAÇÃO DE FONTES E VARIÁVEIS
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400,700,900&display=swap');
+
+:root {
+    /* --- PALETA DE CORES --- */
+    --bg-body: #F5F0E6;       /* Bege do fundo */
+    --text-dark: #2C1A12;     /* Marrom café */
+    --accent: #C05832;        /* Terracota */
+    --accent-hover: #A04020;  /* Terracota escuro */
+    --card-bg: #FFFFFF;       /* Fundo branco */
+    
+    /* --- FONTES --- */
+    --font-script: 'Great Vibes', cursive;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+}
+
+/* =========================================
+   2. RESET E ESTRUTURA BÁSICA
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-dark);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* =========================================
+   3. HERO SECTION (CAPA)
+   ========================================= */
+.hero-card {
+    position: relative;
+    width: 100%;
+    height: 100vh;  /* Altura da tela */
+    height: 100dvh; /* Ajuste para mobile moderno */
+    background-color: var(--bg-body);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.hero-content-center {
+    position: relative;
+    z-index: 10;
+    /* Ajuste inicial (será sobrescrito nas Media Queries) */
+    padding: 20px; 
+}
+
+/* --- FLORES (BASE GERAL) --- */
+.decor-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.decor-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* --- TIPOGRAFIA --- */
+.main-names {
+    font-family: var(--font-script);
+    color: var(--text-dark);
+    line-height: 1.1;
+    font-weight: 400;
+}
+
+.separator-e {
+    display: block;
+    font-family: var(--font-serif);
+    color: var(--accent);
+}
+
+.hero-date {
+    font-family: var(--font-serif);
+    text-transform: uppercase;
+    color: #444;
+}
+
+.hero-divider {
+    border: 0;
+    border-top: 1px solid var(--accent);
+    width: 80px;
+    margin: 0 auto 20px auto;
+    opacity: 0.6;
+}
+
+.hero-location strong {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    font-family: var(--font-serif);
+}
+
+/* Animação Seta */
+/* === ESTILO DA SETINHA (Geral) === */
+.scroll-indicator {
+    margin-top: 20px;       /* Espaço do endereço */
+    font-size: 2.5rem;      /* Tamanho grande */
+    color: var(--accent);   /* Cor terracota */
+    cursor: pointer;
+    opacity: 0.8;
+    z-index: 25;            /* Fica na frente de tudo (flores e folhas) */
+    position: relative;
+    
+    /* Animação de piscar/pular */
+    animation: bounce 2s infinite;
+}
+
+/* Animação do Pulo */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-10px);}
+    60% {transform: translateY(-5px);}
+}
+
+
+/* =========================================
+   4. CONTADOR (CALENDÁRIO LIMPO)
+   ========================================= */
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+.countdown-label {
+    font-family: var(--font-script); /* A mesma fonte dos nomes */
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.calendar-leaf {
+    background: white;
+    width: 100px;
+    border-radius: 8px;
+    /* Sombra suave sem os furos */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
+
+/* Topo colorido */
+.leaf-header {
+    background-color: var(--accent);
+    color: white;
+    font-size: 0.7rem;
+    padding: 5px 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Área do número */
+.leaf-content {
+    padding: 10px 0;
+    color: var(--text-dark);
+}
+
+.leaf-content span {
+    font-size: 2.8rem; /* Aumentei a fonte base */
+    font-weight: 800;  /* Extra negrito */
+    font-family: var(--font-serif);
+    display: block;
+    line-height: 1;
+}
+
+/* Animação de troca */
+@keyframes flip-soft {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.9) translateY(2px); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-change {
+    animation: flip-soft 0.3s ease-in-out;
+    display: inline-block;
+}
+
+/* =========================================
+   5. SEÇÕES GERAIS E CARDS
+   ========================================= */
+.section { padding: 60px 0; text-align: center; }
+.info-bg { background-color: #EDE8DE; }
+
+h2 {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background: var(--text-dark);
+    width: 60px;
+    margin: 0 auto 30px;
+    opacity: 0.3;
+}
+
+p { margin-bottom: 15px; color: #4a4a4a; }
+
+.img-responsive {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid rgba(192, 88, 50, 0.15);
+    transition: transform 0.3s ease;
+}
+.card:hover { transform: translateY(-5px); }
+.card h3 {
+    font-family: var(--font-serif);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+}
+.highlight {
+    border: 2px solid var(--accent); 
+    background-color: #fffaf5;
+}
+
+/* =========================================
+   6. BOTÕES E PIX
+   ========================================= */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.btn-solid {
+    background-color: var(--accent);
+    color: white;
+    border: 1px solid var(--accent);
+    box-shadow: 0 4px 6px rgba(192, 88, 50, 0.3);
+}
+.btn-solid:hover { background-color: var(--accent-hover); border-color: var(--accent-hover); }
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+.btn-outline:hover { background-color: var(--accent); color: white; }
+
+.pix-area { margin-top: 15px; }
+.qrcode {
+    width: 140px;
+    height: 140px;
+    margin: 10px auto;
+    display: block;
+    mix-blend-mode: multiply;
+}
+.copy-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    border-radius: 4px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    color: #555;
+    outline: none;
+}
+button {
+    background: #333;
+    color: white;
+    border: none;
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+footer {
+    padding: 40px;
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* =========================================
+   7. RESPONSIVIDADE (MEDIA QUERIES)
+   ========================================= */
+
+/* -----------------------------------------
+   A. VERSÃO CELULAR (Telas menores que 768px)
+   ----------------------------------------- */
+/* -----------------------------------------
+   A. VERSÃO CELULAR (Telas menores que 768px)
+   ----------------------------------------- */
+@media (max-width: 767px) {
+    
+    /* === 1. NOMES (Ajustados, Maiores e Mais para Cima) === */
+    .main-names {
+        font-size: 3rem;   /* Aumentei a fonte (era 2.1rem) */
+        white-space: nowrap; /* IMPORTANTE: Mantém na mesma linha */
+        margin-top: 0px;    /* Reduzi a margem para subir o texto (era 30px) */
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 10;         /* Garante que fique na frente da flor */
+    }
+    
+    .separator-e {
+        font-size: 1.4rem;
+        margin: 0;           /* Removi margem para juntar mais */
+    }
+
+    .hero-date {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+    }
+
+    /* === 2. FLORES (Maiores e Transparentes) === */
+    
+    /* Flor de Cima */
+    .decor-top {
+        width: 90%;  /* Aumentei (era 150px) */
+        top: -20px;    /* Subi um pouco mais */
+        right: -20px;
+        opacity: 0.6;  /* TRANSPARENTE: Para não roubar o foco */
+    }
+
+    /* Flor de Baixo */
+    .decor-bottom {
+        width: 90%;
+        max-width: none;
+        left: -10%;
+        bottom: -25px;
+        opacity: 0.6;  /* TRANSPARENTE */
+        z-index: 1;
+    }
+
+    /* === 3. CONTADOR (Mantendo legível) === */
+    .calendar-container {
+        gap: 6px; 
+        margin: 15px 0;
+        justify-content: center;
+    }
+    
+    .calendar-leaf {
+        width: 72px;
+        border-radius: 6px;
+    }
+
+    .leaf-header {
+        font-size: 0.65rem;
+        font-weight: 800;
+        padding: 4px 0;
+    }
+    
+    .leaf-content { padding: 5px 0; }
+    
+    .leaf-content span {
+        font-size: 2rem;
+        font-weight: 900;
+        line-height: 1;
+    }
+
+    /* === 4. OUTROS === */
+    .hero-location {
+        position: relative;
+        z-index: 20;
+        font-size: 0.85rem;
+        margin-bottom: 40px;
+        /* Aumentei o brilho atrás do texto para garantir leitura sobre a flor */
+        text-shadow: 0 0 20px rgba(245, 240, 230, 1); 
+    }
+    
+    .hero-divider { margin: 15px auto; width: 50px; }
+    .scroll-indicator {
+        display: block !important; /* Força aparecer */
+        font-size: 2rem;           /* Um pouco menor no celular */
+        margin-top: 10px;
+        margin-bottom: 30px;       /* Empurra para não ficar colado na borda */
+        
+        /* Como vai ficar em cima da flor de baixo, vamos dar um brilho para destacar */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); 
+    }
+}
+
+/* -----------------------------------------
+   B. VERSÃO TABLET E PC (Telas maiores que 768px)
+   ----------------------------------------- */
+@media (min-width: 768px) {
+    
+    /* Layout */
+    .hero-content-center { margin-top: 40px; padding: 40px; }
+    .main-names { font-size: 5rem; }
+
+    /* Grids */
+    .grid-2-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        text-align: left;
+    }
+    .grid-2-cols .divider { margin-left: 0; }
+
+    .grid-3-cols {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        align-items: start;
+    }
+    .card { margin-bottom: 0; height: 100%; }
+
+    /* Flores PC */
+    .decor-top { width: 400px; }
+    .decor-bottom { width: 400px; bottom: 0; left: 0; max-width: 100%; }
+}
+
+/* =========================================
+   EFEITO: CHUVA DE PÉTALAS (FALLING LEAVES)
+   ========================================= */
+.petal {
+    position: fixed;
+    top: -10px;
+    z-index: 5; /* Fica na frente do fundo, mas atrás do texto (que é z-index 10) */
+    background: var(--accent); /* Cor terracota */
+    opacity: 0.8;
+    border-radius: 5px 50% 50% 50%; /* Formato de folha/gota */
+    pointer-events: none; /* Não atrapalha o clique */
+    animation: fall linear forwards;
+}
+
+/* Variação de cor (algumas mais escuras) */
+.petal:nth-child(even) {
+    background: #A04020; /* Terracota mais escuro */
+}
+.petal:nth-child(3n) {
+    background: #D4A373; /* Um tom mais bege/seco */
+}
+
+/* =========================================
+   EFEITO: CHUVA DE FOLHAS (CSS PURO - COR FIXA)
+   ========================================= */
+/* A folha base */
+.petal {
+    position: absolute;
+    top: -20px;
+    z-index: 5;
+    
+    /* Formato de folha e cor inicial */
+    background-color: var(--accent); /* Terracota */
+    border-radius: 0 70% 0 70%;      /* Ponta de um lado */
+    
+    opacity: 0;
+    pointer-events: none;
+    /* Apenas chama a animação 'fall' */
+    animation: fall linear forwards;
+    
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* --- VARIAÇÕES DE COR FIXAS --- */
+/* As cores são definidas aqui e NÃO mudam durante a queda */
+
+.petal:nth-child(2n) {
+    background-color: #A04020; /* Cor mais escura */
+    border-radius: 70% 0 70% 0; /* Ponta do outro lado */
+}
+
+.petal:nth-child(3n) {
+    background-color: #D4A373; /* Cor bege/clara */
+}
+
+.petal:nth-child(4n) {
+    background-color: #e67e22; /* Cor laranja forte */
+    border-radius: 70% 0 70% 0;
+}
+
+/* --- ANIMAÇÃO LIMPA (SEM FILTRO DE COR) --- */
+@keyframes fall {
+    0% {
+        /* Apenas posição, rotação e transparência */
+        transform: translateY(-5vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    80% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(105vh) translateX(50px) rotate(360deg);
+        opacity: 0;
+        /* Se houvesse 'filter: hue-rotate' aqui, ele mudaria de cor.
+           Como não tem, a cor se mantém. */
+    }
+}
+/* =========================================
+   SEÇÃO DE BOAS-VINDAS
+   ========================================= */
+
+/* Fundo um pouco diferente do header para dar contraste */
+.welcome-section {
+    background-color: #FFFFFF; /* Branco ou mantenha o bege se preferir */
+    padding: 80px 0;
+}
+
+/* Ajustes do Texto */
+.welcome-text {
+    text-align: left; /* Texto alinhado à esquerda é mais chique no PC */
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.welcome-text h2 {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.welcome-text p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
+    font-weight: 300; /* Fonte mais fina (Lato Light) fica elegante */
+}
+
+/* O divisor floral pequeno */
+.mini-divider {
+    width: 60px;
+    opacity: 0.6;
+    margin-bottom: 25px;
+}
+
+/* A Assinatura (Destaque final) */
+.signature {
+    font-family: var(--font-script); /* Great Vibes */
+    font-size: 2.5rem !important;
+    color: var(--accent);
+    margin-top: 10px;
+    transform: rotate(-2deg); /* Leve inclinação para parecer escrito à mão */
+}
+
+/* --- A FOTO EM ARCO (BOOOHO STYLE) --- */
+.welcome-img-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo-arch {
+    width: 100%;
+    max-width: 400px; /* Tamanho máximo da foto */
+    height: 500px;    /* Altura para ficar vertical */
+    object-fit: cover; /* Corta a foto para preencher sem esticar */
+    
+    /* A MÁGICA DO ARCO: */
+    border-radius: 200px 200px 20px 20px; 
+    
+    box-shadow: 10px 10px 0px rgba(192, 88, 50, 0.1); /* Sombra deslocada sólida */
+    z-index: 2;
+}
+
+/* Borda desenhada atrás (opcional, dá charme) */
+.arch-border {
+    position: absolute;
+    width: 100%;
+    max-width: 400px;
+    height: 500px;
+    border: 2px solid var(--accent);
+    border-radius: 200px 200px 20px 20px;
+    top: 20px;   /* Deslocado para baixo */
+    left: 20px;  /* Deslocado para direita (no PC) */
+    z-index: 1;
+    opacity: 0.3;
+}
+
+/* =========================================
+   RESPONSIVIDADE (CELULAR)
+   ========================================= */
+@media (max-width: 767px) {
+    .welcome-text {
+        text-align: center; /* No celular centralizado fica melhor */
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+
+    .welcome-text h2 {
+        font-size: 2.2rem;   /* Reduzi o tamanho (no PC é 3rem) para caber */
+        white-space: nowrap; /* O SEGREDO: Força a ficar em uma linha só */
+        margin-bottom: 15px;
+    }
+    
+    .mini-divider {
+        margin: 0 auto 20px auto; /* Centraliza a florzinha */
+    }
+
+    .photo-arch {
+        height: 400px; /* Um pouco menor no celular */
+        max-width: 320px;
+    }
+    
+    .arch-border {
+        max-width: 320px;
+        height: 400px;
+        left: 50%; /* Centraliza a borda */
+        transform: translateX(-45%); /* Ajuste fino do centro */
+    }
+    .signature {
+        font-size: 1.6rem !important; /* Reduzi bastante para caber tudo junto */
+        white-space: nowrap;          /* Não deixa quebrar */
+        margin-top: 20px;
+    }
+    
+    /* Ordem: Queremos a foto antes ou depois do texto? 
+       Normalmente Texto primeiro funciona bem, mas se quiser inverter: */
+    /* .grid-2-cols { display: flex; flex-direction: column-reverse; } */
+}
+
+/* =========================================
+   NOSSA HISTÓRIA (LAYOUT ZIGUE-ZAGUE COMPACTO)
+   ========================================= */
+.history-section {
+    background-color: #F5F0E6;
+    /* Tenta ocupar a altura da tela, mas cresce se precisar */
+    max-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    position: relative;
+    padding: 60px 0;
+    overflow: hidden;
+}
+
+.history-title {
+    text-align: center;
+    font-size: 3.5rem;
+    color: var(--accent);
+    margin-bottom: 30px; /* Espaço entre título e linha do tempo */
+}
+
+/* Container da Linha do Tempo */
+.timeline-zigzag {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* A LINHA CENTRAL VERTICAL */
+.timeline-zigzag::before {
+    content: '';
+    position: absolute;
+    left: 50%; /* Exatamente no meio */
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background-color: #dccbb5; /* Bege escuro */
+    top: 0;
+}
+
+/* CONFIGURAÇÃO DOS ITENS (Caixas) */
+.zigzag-item {
+    position: relative;
+    width: 50%; /* Ocupa metade da tela */
+    padding-bottom: 20px; /* Espaço entre um e outro */
+    
+    /* Animação de entrada */
+    opacity: 0;
+    transition: all 0.8s ease-out;
+}
+
+/* --- LADO ESQUERDO --- */
+.left-item {
+    left: 0;
+    text-align: right; /* Texto alinhado para a linha central */
+    padding-right: 40px; /* Espaço para a bolinha não colar no texto */
+    transform: translateX(-50px); /* Começa vindo da esquerda */
+}
+
+.left-item .zigzag-dot {
+    right: -10px; /* Bolinha posicionada na linha central (lado direito da caixa) */
+}
+
+/* --- LADO DIREITO --- */
+.right-item {
+    left: 50%; /* Começa do meio */
+    text-align: left;
+    padding-left: 40px;
+    transform: translateX(50px); /* Começa vindo da direita */
+}
+
+.right-item .zigzag-dot {
+    left: -10px; /* Bolinha posicionada na linha central (lado esquerdo da caixa) */
+}
+
+/* ESTILO DA BOLINHA */
+.zigzag-dot {
+    position: absolute;
+    top: 0; /* Alinhado com o topo do texto */
+    width: 20px;
+    height: 20px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    border: 4px solid #F5F0E6; /* Borda da cor do fundo cria respiro */
+    box-shadow: 0 0 0 1px var(--accent);
+    z-index: 2;
+}
+
+/* TIPOGRAFIA */
+.zigzag-content .year {
+    font-weight: bold;
+    color: var(--accent);
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.zigzag-content h3 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.zigzag-content p {
+    line-height: 1.5; /* Texto mais compacto */
+    font-size: 1rem;
+}
+
+/* CLASSE QUE O JAVASCRIPT ATIVA */
+.zigzag-item.show-content {
+    opacity: 1;
+    transform: translateX(0); /* Volta para a posição original */
+}
+
+/* ATRASOS (Cascata) */
+.zigzag-item:nth-child(2) { transition-delay: 0.2s; }
+.zigzag-item:nth-child(3) { transition-delay: 0.4s; }
+
+/* =========================================
+   RESPONSIVIDADE (CELULAR - CORRIGIDO FINAL)
+   ========================================= */
+@media (max-width: 767px) {
+    .history-section {
+        /* 1. OBRIGATÓRIO: Remove o limite de altura do PC */
+        max-height: none !important;  /* O segredo: deixa crescer além da tela */
+        height: auto !important;      /* Altura baseada no texto */
+        min-height: auto !important;
+        
+        /* 2. OBRIGATÓRIO: Permite que o conteúdo "vaze" para ter rolagem */
+        overflow: visible !important; 
+        
+        /* 3. Alinha tudo ao topo (se ficar center, corta o começo) */
+        justify-content: flex-start; 
+        
+        /* 4. Paddings generosos para nada colar */
+        padding-top: 50px;
+        padding-bottom: 40px; /* Bastante espaço no fim para ler o último item */
+    }
+    
+    .timeline-zigzag::before {
+        left: 20px; /* Linha na esquerda */
+    }
+    
+    .zigzag-item {
+        width: 100%;
+        left: 0 !important;
+        text-align: left !important;
+        
+        padding-left: 50px;
+        padding-right: 20px; /* Respiro na direita */
+        padding-bottom: 40px; /* Espaço entre os blocos de texto */
+        
+        transform: none !important; /* Remove deslocamento lateral */
+        opacity: 1 !important; /* Garante que o texto apareça mesmo se a animação falhar */
+    }
+    
+    .zigzag-dot {
+        left: 11px !important;
+        right: auto !important;
+    }
+}
+
+/* =========================================
+   SEÇÃO O GRANDE DIA (LAYOUT LISTA CLEAN)
+   ========================================= */
+
+.white-bg {
+    background-color: #FFFFFF;
+    /* Reduzi o padding superior para o título subir */
+    padding: 60px 0 100px 0; 
+}
+
+/* Título Compacto (Mais perto do topo) */
+.section-title-compact {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    color: var(--accent);
+    text-align: center;
+    margin-top: 0;       /* Garante que não tenha margem extra */
+    margin-bottom: 60px; /* Espaço até o conteúdo */
+    line-height: 1;
+}
+
+/* Grid Expandido (Mais espaço entre colunas) */
+.event-grid-expanded {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px; /* Aumentei bastante o espaço no meio */
+    align-items: flex-start; /* Alinha pelo topo */
+}
+
+/* --- COLUNA ESQUERDA (LISTA DE INFORMAÇÕES) --- */
+.info-list-column {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* Espaço entre os blocos (Data e Local) */
+    text-align: left;
+}
+
+/* O Bloco de Item (Ícone + Texto) */
+.info-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+/* O Círculo do Ícone (Inspirado na imagem) */
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #fdf5f2; /* Fundo bem clarinho (rosado/bege) */
+    border-radius: 50%; /* Redondo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent); /* Cor do ícone */
+    flex-shrink: 0;
+}
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Títulos (Data e Horário / Local) */
+.info-label {
+    font-family: var(--font-serif); /* Serifa para ficar elegante */
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+/* Texto Principal */
+.info-main {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+/* Destaque para o nome do local */
+.venue-highlight {
+    font-weight: 800; /* Negrito forte */
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Texto Secundário (Horário / Endereço) */
+.info-sub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 15px; /* Espaço antes do botão */
+}
+
+/* Botão de Calendário (Pequeno e Discreto) */
+.btn-calendar-small {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    padding: 6px 15px;
+    border-radius: 20px;
+    align-self: flex-start; /* Alinha à esquerda */
+    transition: all 0.3s;
+    width: fit-content;
+}
+
+.btn-calendar-small:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+/* --- DICA (Estilo Folha Clean) --- */
+.tip-separator {
+    margin-top: 20px;
+    padding: 25px 0; /* Espaço interno vertical */
+    border-top: 1px solid rgba(0,0,0,0.1);    /* Linha fina em cima */
+    border-bottom: 1px solid rgba(0,0,0,0.1); /* Linha fina embaixo */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tip-leaf {
+    font-size: 1.5rem;
+    opacity: 0.8;
+}
+
+.tip-separator p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+    font-family: var(--font-body);
+}
+
+.tip-separator strong {
+    color: var(--accent);
+}
+
+/* --- COLUNA DIREITA (MAPA) --- */
+.map-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.map-rectangle {
+    width: 100%;
+    height: 320px; /* Altura equilibrada */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
+}
+
+.app-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-app {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: transform 0.2s;
+}
+.btn-app:hover { transform: translateY(-2px); }
+.waze { background-color: #fff; color: #33ccff; border: 1px solid #33ccff; }
+.uber { background-color: #fff; color: #000; border: 1px solid #000; }
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 900px) {
+    .section-title-compact {
+        margin-top: 40px; /* Um pouco mais de espaço no topo do mobile */
+        margin-bottom: 40px;
+        font-size: 2.5rem;
+    }
+
+    .event-grid-expanded {
+        grid-template-columns: 1fr; /* Uma coluna */
+        gap: 50px;
+    }
+
+    .info-list-column {
+        order: 1; /* Informação primeiro */
+    }
+    
+    .map-column {
+        order: 2; /* Mapa depois */
+    }
+    
+    /* Centralizar tudo no celular se preferir, ou manter à esquerda */
+    /* Se quiser centralizar, descomente as linhas abaixo: */
+    /* .info-list-column, .info-item, .info-content {
+        align-items: center;
+        text-align: center;
+    }
+    .btn-calendar-small { align-self: center; }
+    .tip-separator { justify-content: center; text-align: center; }
+    */
+}
+/* =========================================
+   RSVP GOOGLE FORMS (INTEGRAÇÃO PERFEITA)
+   ========================================= */
+
+.rsvp-section {
+    background-color: #F5F0E6; /* Bege do site */
+    padding: 40px 0;
+    text-align: center;
+}
+
+.rsvp-intro-text {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.rsvp-intro-text strong { color: var(--accent); }
+
+/* O Cartão Branco */
+.google-form-card {
+    background-color: #FFFFFF;
+    max-width: 650px;       /* Largura ideal para leitura */
+    margin: 0 auto;         /* Centraliza */
+    border-radius: 15px;    /* Cantos arredondados */
+    overflow: hidden;       /* Esconde o que cortarmos */
+    
+    /* Sombra suave para destacar do fundo bege */
+    box-shadow: 0 15px 40px rgba(192, 88, 50, 0.08); 
+    border: 1px solid rgba(192, 88, 50, 0.1);
+}
+
+/* O Corte e Ajuste de Altura */
+.crop-wrapper iframe {
+    width: 100%;
+    
+    /* 1. O CORTE DO CABEÇALHO GOOGLE */
+    /* Puxa o formulário para cima para esconder o logo do Google/Login */
+    /* Se cortar o título da pergunta, diminua para -100px */
+    margin-top: -310px; 
+    
+    /* 2. ALTURA NO COMPUTADOR */
+    /* Ajuste esse número até sumir a barra de rolagem lateral cinza */
+    height: 900px; 
+}
+
+/* Responsividade (Celular) */
+@media (max-width: 767px) {
+    .rsvp-section { padding: 50px 0; }
+
+    .google-form-card {
+        width: 95%; /* Ocupa quase toda a largura */
+        border-radius: 10px;
+    }
+    
+    .crop-wrapper iframe {
+        /* No celular o cabeçalho do Google é menor, cortamos menos */
+        margin-top: -420px; 
+        
+        /* O formulário fica mais comprido no celular, precisamos de mais altura */
+        /* Aumente aqui se o botão de enviar estiver cortado */
+        height: 950px; 
+    }
+}
+
+/* =========================================
+   LISTA DE PRESENTES (FLIP CARDS)
+   ========================================= */
+
+.gift-section {
+    background-color: #FFFFFF;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.gift-intro {
+    max-width: 700px;
+    margin: 0 auto 50px auto;
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.gift-sub {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: var(--accent);
+}
+
+/* GRID DE CARTÕES */
+.gift-grid {
+    display: grid;
+    /* No PC: Cria 3 colunas de tamanho igual */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
+    justify-content: center;
+    padding: 0 20px;
+    max-width: 1100px; /* Limita a largura para não esticar demais */
+    margin: 0 auto;
+}
+
+/* O CONTAINER DO FLIP (Define o tamanho) */
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    /* Pode remover o max-width fixo se quiser que estique, 
+       mas 320px é bom para manter a forma de cartão */
+    max-width: 320px; 
+    height: 400px; /* Aumentei um pouquinho para caber os textos novos */
+    perspective: 1000px;
+    margin: 0 auto; /* Centraliza na célula do grid */
+    cursor: pointer;
+}
+
+/* O ENVOLTÓRIO QUE GIRA */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s; /* Tempo da virada */
+    transform-style: preserve-3d;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+/* CLASSE QUE O JS ATIVA PARA GIRAR */
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* FACE DA FRENTE E DO VERSO */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Esconde as costas */
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid rgba(192, 88, 50, 0.1);
+}
+
+/* ESTILO DA FRENTE (Clean) */
+.flip-card-front {
+    background-color: #fdfaf6; /* Bege muito clarinho */
+    color: var(--text-dark);
+}
+
+.icon-gift { font-size: 3rem; margin-bottom: 15px; }
+
+.flip-card-front h3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.flip-card-front p { font-size: 0.95rem; color: #666; margin-bottom: 25px; }
+
+.fake-btn {
+    padding: 10px 25px;
+    border: 1px solid var(--accent);
+    border-radius: 50px;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* ESTILO DO VERSO (Com o QR Code) */
+.flip-card-back {
+    background-color: white;
+    transform: rotateY(180deg); /* Já começa virado */
+    border: 2px solid var(--accent); /* Borda colorida para destacar */
+}
+
+.flip-card-back h3 {
+    font-family: var(--font-script);
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.qr-img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    mix-blend-mode: multiply; /* Remove fundo branco se tiver */
+}
+
+.pix-value {
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.btn-copy {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.btn-copy:hover { background-color: var(--accent-hover); }
+
+/* Pequena animação de "Pulso" para indicar que é clicável */
+.flip-card:hover .flip-card-inner {
+    box-shadow: 0 15px 30px rgba(192, 88, 50, 0.15);
+}
+@media (max-width: 1024px) {
+    /* Tablet: 2 colunas */
+    .gift-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    /* Celular: 1 coluna (um embaixo do outro) */
+    .gift-grid {
+        grid-template-columns: 1fr;
+    }
+}
