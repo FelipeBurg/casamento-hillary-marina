@@ -1284,3 +1284,93 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+/* Animação de Batimento */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.3); } /* Cresce */
+    30% { transform: scale(1); }   /* Volta */
+    45% { transform: scale(1.3); } /* Cresce de novo (Tum-tum) */
+    60% { transform: scale(1); }
+    100% { transform: scale(1); }
+}
+
+.heart-beat {
+    display: inline-block;
+    animation: heartbeat 2s infinite; /* Repete para sempre a cada 2s */
+    cursor: default;
+}
+/* =========================================
+   EASTER EGG (CACHORRO) - Versão Ajustada
+   ========================================= */
+.dog-wrapper {
+    position: fixed;
+    bottom: 20px;
+    /* O SEGREDO: Jogar ele MUITO longe (antes era -300px, agora -800px) 
+       para garantir que nem o rabo do cachorro grande apareça */
+    right: -800px; 
+    z-index: 9999;
+    display: flex;
+    flex-direction: column; /* Texto em cima, cachorro embaixo */
+    align-items: center;
+    pointer-events: none;
+}
+
+/* O Balão de Fala (Travado para não ficar gigante) */
+/* O Balão de Fala */
+.dog-speech {
+    background: white;
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 16px; 
+    max-width: 250px; 
+    text-align: center;
+    
+    /* O SEGREDO ESTÁ AQUI: */
+    /* Antes estava 5px (empurrava pra longe). */
+    /* Agora -20px vai puxar o cachorro pra cima do balão */
+    margin-bottom: -30px; 
+    
+    /* Garante que o balão fique NA FRENTE do cachorro se encostar */
+    position: relative; 
+    z-index: 2; 
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    white-space: normal;
+}
+
+/* A Imagem do Cachorro (Grande) */
+.dog-img {
+    height: 300px; /* Tamanho bem grande como você pediu */
+    width: auto;
+    
+    /* Se for GIF, mantenha essa linha comentada/apagada: */
+    /* animation: wobble 0.5s infinite alternate; */
+}
+
+/* A Animação de Corrida (Lenta) */
+.dog-run-animation {
+    /* 15s = Bem devagar. Se quiser mais rápido, diminua o número */
+    animation: runAcross 15s linear forwards; 
+}
+
+@keyframes runAcross {
+    /* TEM QUE COMEÇAR no mesmo valor do .dog-wrapper (-800px) */
+    0%   { right: -800px; } 
+    100% { right: 120vw; } /* Vai até sumir na esquerda */
+}
+
+/* Ajuste para Celular (Para não ocupar a tela toda) */
+@media (max-width: 600px) {
+    .dog-wrapper { right: -400px; } /* Esconderijo menor no celular */
+    
+    @keyframes runAcross {
+        0%   { right: -400px; }
+        100% { right: 120vw; }
+    }
+
+    .dog-img { height: 180px; } /* Um pouco menor no celular pra caber */
+    .dog-speech { font-size: 12px; padding: 5px 10px; }
+}

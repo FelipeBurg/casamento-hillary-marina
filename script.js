@@ -233,3 +233,47 @@ function slowScroll(targetId, duration) {
 
     requestAnimationFrame(animation);
 }
+/* =========================================
+   EASTER EGG DO CACHORRO 🐶 (VERSÃO CORRIGIDA)
+   ========================================= */
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. Procura o container do cachorro
+    const dogContainer = document.getElementById('dog-container');
+    
+    // 2. Procura TODOS os elementos com a classe heart-beat
+    const hearts = document.querySelectorAll('.heart-beat');
+
+    if (!dogContainer) {
+        console.error("ERRO: Não achei a div do cachorro no HTML!");
+        return;
+    }
+
+    if (hearts.length === 0) {
+        console.error("ERRO: Não achei nenhum coração (.heart-beat) no HTML!");
+        return;
+    }
+
+    // 3. Adiciona o clique em cada coração encontrado
+    hearts.forEach(heart => {
+        // Força o cursor a virar mãozinha
+        heart.style.cursor = "pointer";
+        // Aumenta a área de clique (opcional, ajuda no celular)
+        heart.style.padding = "10px"; 
+
+        heart.addEventListener('click', function(e) {
+            console.log("Clicou no coração! Soltando o cachorro..."); // Isso aparece no Console (F12)
+            
+            // Se já estiver correndo, não faz nada
+            if (dogContainer.classList.contains('dog-run-animation')) return;
+
+            // Adiciona a classe que move ele
+            dogContainer.classList.add('dog-run-animation');
+
+            // Remove depois de 4s para poder clicar de novo
+            setTimeout(() => {
+                dogContainer.classList.remove('dog-run-animation');
+            }, 15000);
+        });
+    });
+});
