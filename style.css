@@ -1331,7 +1331,7 @@ footer {
     /* O SEGREDO ESTÁ AQUI: */
     /* Antes estava 5px (empurrava pra longe). */
     /* Agora -20px vai puxar o cachorro pra cima do balão */
-    margin-bottom: -30px; 
+    margin-bottom: -60px; 
     
     /* Garante que o balão fique NA FRENTE do cachorro se encostar */
     position: relative; 
@@ -1343,7 +1343,7 @@ footer {
 
 /* A Imagem do Cachorro (Grande) */
 .dog-img {
-    height: 300px; /* Tamanho bem grande como você pediu */
+    height: 600px; /* Tamanho bem grande como você pediu */
     width: auto;
     
     /* Se for GIF, mantenha essa linha comentada/apagada: */
